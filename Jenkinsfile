@@ -5,7 +5,7 @@ pipeline {
     stage('Upload Infra to S3') {
       steps {
         withCredentials([
-          string(credentialsId: 's3-bucket-data-server', variable: 'S3_BUCKET'),
+          string(credentialsId: 's3-bucket', variable: 'S3_BUCKET'),
           string(credentialsId: 's3-path-data-server', variable: 'S3_PATH'),
         ]) {
           sh """
