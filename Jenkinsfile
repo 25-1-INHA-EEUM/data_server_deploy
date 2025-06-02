@@ -34,10 +34,17 @@ pipeline {
             --instance-ids ${env.TARGET_INSTANCE_ID} \\
             --document-name "AWS-RunShellScript" \\
             --parameters 'commands=[
+              "sudo yum update -y",
+              "sudo yum install -y docker aws-cli",
+              "sudo systemctl enable --now docker",
+              "sudo mkdir -p /usr/local/lib/docker/cli-plugins",
+              "sudo curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose",
+              "sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose",
+              "docker compose version",
               "mkdir -p ~/infra-deploy",
-              "aws s3 cp s3://${S3_BUCKET}/${S3_PATH}/docker-compose.yml ~/docker-compose.yml",
-              "aws s3 cp --recursive s3://${S3_BUCKET}/${S3_PATH}/database ~/database",
-              "aws s3 cp --recursive s3://${S3_BUCKET}/${S3_PATH}/mosquitto ~/mosquitto",
+              "aws s3 cp s3://${S3_BUCKET}/${S3_PATH}/docker-compose.yml ~/infra-deploy/docker-compose.yml",
+              "aws s3 cp --recursive s3://${S3_BUCKET}/${S3_PATH}/database ~/infra-deploy/database",
+              "aws s3 cp --recursive s3://${S3_BUCKET}/${S3_PATH}/mosquitto ~/infra-deploy/mosquitto",
               "cd ~/infra-deploy",
               "echo POSTGRES_USER=${env.POSTGRES_USER_SECRET} > .env",
               "echo POSTGRES_PASSWORD=${env.POSTGRES_PASSWORD_SECRET} >> .env",
