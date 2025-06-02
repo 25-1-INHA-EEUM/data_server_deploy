@@ -3,16 +3,17 @@ pipeline {
 
   stages {
     stage('Upload Infra to S3') {
-      steps 
-      withCredentials([
-        string(credentialsId: 's3-bucket-data-server', variable: 'S3_BUCKET'),
-        string(credentialsId: 's3-path-data-server', variable: 'S3_PATH'),
-      ]) {
-        sh """
-        aws s3 cp docker-compose.yml s3://${S3_BUCKET}/${S3_PATH}/docker-compose.yml
-        aws s3 cp -r database s3://${S3_BUCKET}/${S3_PATH}/database
-        aws s3 cp -r mosquitto s3://${S3_BUCKET}/${S3_PATH}/mosquitto
-        """
+      steps {
+        withCredentials([
+          string(credentialsId: 's3-bucket-data-server', variable: 'S3_BUCKET'),
+          string(credentialsId: 's3-path-data-server', variable: 'S3_PATH'),
+        ]) {
+          sh """
+            aws s3 cp docker-compose.yml s3://${S3_BUCKET}/${S3_PATH}/docker-compose.yml
+            aws s3 cp -r database s3://${S3_BUCKET}/${S3_PATH}/database
+            aws s3 cp -r mosquitto s3://${S3_BUCKET}/${S3_PATH}/mosquitto
+          """
+        }
       }
     }
 
