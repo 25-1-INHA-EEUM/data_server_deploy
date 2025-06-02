@@ -10,8 +10,8 @@ pipeline {
         ]) {
           sh """
             aws s3 cp docker-compose.yml s3://${S3_BUCKET}/${S3_PATH}/docker-compose.yml
-            aws s3 cp -r database s3://${S3_BUCKET}/${S3_PATH}/database
-            aws s3 cp -r mosquitto s3://${S3_BUCKET}/${S3_PATH}/mosquitto
+            aws s3 cp --recursive database s3://${S3_BUCKET}/${S3_PATH}/database
+            aws s3 cp --recursive mosquitto s3://${S3_BUCKET}/${S3_PATH}/mosquitto
           """
         }
       }
