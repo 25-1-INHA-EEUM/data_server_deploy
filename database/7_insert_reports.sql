@@ -3,7 +3,7 @@ INSERT INTO reports (location_id, created_at, content) VALUES
 (2, NOW(), '리포트 내용 2'),
 (3, NOW(), '리포트 내용 3'),
 (4, NOW(), '리포트 내용 4'),
-(5, NOW(), '리포트 내용 5'),
+(5, NOW(), '리포트 내용 5');
 -- (6, NOW(), '리포트 내용 6'),
 -- (7, NOW(), '리포트 내용 7'),
 -- (8, NOW(), '리포트 내용 8'),
