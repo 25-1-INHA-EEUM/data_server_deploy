@@ -51,7 +51,7 @@ pipeline {
               "echo POSTGRES_DB=${env.POSTGRES_DB_SECRET} >> .env",
               "echo ECR_REGISTRY=${env.ECR_REGISTRY_SECRET} >> .env",
               "aws ecr get-login-password --region ${env.REGION} | docker login --username AWS --password-stdin ${env.ECR_REGISTRY_SECRET}",
-              "docker compose down -v|| true",
+              "docker compose down || true",
               "docker system prune -af",
               "docker compose up -d"
             ]' \\
